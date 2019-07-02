@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block header %}
+	<h1>{% block title %} Post - {{ post['title'] }}{% endblock %}</h1>
+{% endblock %}
+{% block head %}
+	{{ super() }}
+	<link rel="stylesheet" href="{{ url_for('static', filename='CSS/post_style.css') }}">
+{% endblock %}
+
+{% block content %}
+	<article class="post container">
+		<header>
+			<div class="post-header">
+	          <div class="about">by {{ User.query.get(post['author_id']).username }} on {{ post['created_at'].strftime('%Y-%m-%d') }}</div>
+        	</div>
+	        {% if g.user['id'] == post['author_id'] %}
+	          <a class="action" href="{{ url_for('blog.update', id=post['id']) }}">Edit</a>
+	        {% endif %}
+		</header>
+			<p class="body">{{ post['body'] }}</p>
+	</article>
+	<section id="comment-box" class="container">
+		{% if g.user %}
+			<form method="POST">
+				<label for="comment">Comment</label>
+				<textarea name="comment" maxlength="200" rows="5" placeholder="Enter your comment here" value=""></textarea>
+				<input type="submit" value="post"></input>
+			</form>
+		{% endif %}
+	</section>
+	<hr>
+	<section id="comment-section">
+		{% for comment in comments %}
+			<div class="comment">
+				<h5>{{ User.query.get(comment.author_id).username }}</h3>
+				<hr>
+				</br>
+				{{ comment.comment }}
+			</div>
+		{% endfor %}
+	</section>
+{% endblock %}

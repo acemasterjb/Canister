@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Posts{% endblock %}</h1>
+  {% if g.user and current_user.isAdmin==1 %}
+    <a class="action" href="{{ url_for('blog.create') }}">New</a>
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+{% for post in posts.items %}
+      <article class="post">
+        <header>
+          <div class="post-header">
+            <h1><a href="{{ url_for('single_post.post', id=post['id']) }}">{{ post['title'] }}</a></h1>
+            <div class="about">by {{ User.query.get(post['author_id']).username }} on {{ post['created_at'].strftime('%Y-%m-%d') }}</div>
+          </div>
+          {% if g.user['id'] == post['author_id'] %}
+            <a class="action" href="{{ url_for('blog.update', id=post['id']) }}">Edit</a>
+          {% endif %}
+        </header>
+        <p class="body">{{ post['body'][0:post['body'].find('\n')] }}</p>
+      <p>...</p>
+      </article>
+    {% endfor %}
+    {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=2) %}
+      {% if page_num %}
+        <a class='page_num' href="{{ url_for('blog.index', page=page_num) }}"> {{ page_num }}</a>
+      {% else %}
+        <p>...</p>
+      {% endif %}
+    {% endfor %}
+  {# {% else %}
+    <article class="post"><h1> No entries here so far </h1></article> #}
+{% endblock %}

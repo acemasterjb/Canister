@@ -1,0 +1,31 @@
+
+section #comment-box{
+	width: 55%;
+	height: auto;
+	margin: 0 auto;
+	}
+
+section #comment-box textarea{
+	background-color: rgba(211, 211, 211, 0.78);
+}
+
+section #comment-section .comment{
+	border: 1px solid gray;
+	border-style: none none inset inset;
+	border-radius: 4px;
+	padding: 0.25em 1em 0.25em 1em;
+	width: 65%;
+	margin: 0 auto;
+}
+
+section #comment-section h5{
+	margin: 0.25% 1% 1% 2.5%;
+}
+
+section #comment-section hr{
+	margin: 0.125%;
+}
+
+hr{
+	margin: 2.5%;
+}

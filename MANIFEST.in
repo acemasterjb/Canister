@@ -1,0 +1,3 @@
+graft blog/static
+graft blog/templates
+global-exclude *.pyc
