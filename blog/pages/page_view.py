@@ -31,6 +31,9 @@ def page_view(path):
     return render_template('blog/page.html',
                             page=page, pages=pages, page_sections=page_sections)
 
+"""This section hold the methods for creating, updating and deleting elements
+   or sections on pages. These elements are stored in the database as PageElement(s)"""
+
 @bp.route('/create_elem', methods=('GET','POST'))
 @login_required
 def elem_new():
@@ -90,8 +93,7 @@ def elem_delete(id):
     db.session.commit()
     return page_view(page_section.parent)
 
-
-
+"""END SECTION"""
 
 @bp.route('/new_page', methods=('GET', 'POST'))
 @login_required
@@ -116,4 +118,13 @@ def page_new():
             return page_view(path_name)
 
     return render_template('/page/new_page.html')
-    
+
+@bp.route('/<string:path>/delete', methods=('GET',))
+@login_required
+def page_del(path):
+
+    from blog import db
+    page = Page.query.filter_by(path_name = path).first()
+    db.session.delete(page)
+    db.session.commit()
+    return redirect('/')

@@ -1,10 +1,14 @@
+from os import path, getcwd
+
 from flask import Blueprint, flash, g
 from flask import redirect, render_template, request, url_for
 from werkzeug.exceptions import abort
+from werkzeug.utils import secure_filename
 
 from blog.auth.views import login_required
 from blog.blog.model import Post
 from blog.auth.model import User
+from blog.pages.model import Page
 from blog import db
 
 bp = Blueprint('blog', __name__)
@@ -14,8 +18,9 @@ bp = Blueprint('blog', __name__)
 def index():
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(
-        Post.created_at.desc()).paginate(per_page=8, page=page)
-    return render_template('blog/index.html', posts=posts, User=User)
+        Post.created_at.desc()).paginate(per_page=5, page=page)
+    pages = Page.query.all()
+    return render_template('blog/index.html', posts=posts, pages=pages, User=User)
 
 
 @bp.route('/create', methods=('GET', 'POST'))
@@ -46,7 +51,7 @@ def get_post(id, check_author=True):
     if post is None:
         abort(404, "Post id {0} doesn't exist.".format(id))
 
-    if check_author and post['author_id'] != g.user.uid:
+    if check_author and post.author_id != g.user.uid:
         abort(403)
 
     return post

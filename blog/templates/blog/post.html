@@ -6,6 +6,7 @@
 {% block head %}
 	{{ super() }}
 	<link rel="stylesheet" href="{{ url_for('static', filename='CSS/post_style.css') }}">
+	{% include "textedit-head.html" %}
 {% endblock %}
 
 {% block content %}
@@ -18,26 +19,30 @@
 	          <a class="action" href="{{ url_for('blog.update', id=post['id']) }}">Edit</a>
 	        {% endif %}
 		</header>
-			<p class="body">{{ post['body'] }}</p>
+			<p class="body">{{ post['body']|markdown }}</p>
 	</article>
 	<section id="comment-box" class="container">
 		{% if g.user %}
 			<form method="POST">
 				<label for="comment">Comment</label>
-				<textarea name="comment" maxlength="200" rows="5" placeholder="Enter your comment here" value=""></textarea>
-				<input type="submit" value="post"></input>
+				<textarea name="comment" maxlength="200" rows="5"
+						  placeholder="Enter your comment here" value="" class="summer"></textarea>
+				<input type="submit" value="post">
 			</form>
 		{% endif %}
 	</section>
 	<hr>
-	<section id="comment-section">
-		{% for comment in comments %}
-			<div class="comment">
-				<h5>{{ User.query.get(comment.author_id).username }}</h3>
-				<hr>
-				</br>
-				{{ comment.comment }}
-			</div>
-		{% endfor %}
-	</section>
+	{% if g.user %}
+		<section id="comment-section">
+			{% for comment in comments %}
+				<div class="comment">
+					<h5>{{ User.query.get(comment.author_id).username }}</h3>
+					<hr>
+					<br/>
+					{{ comment.comment }}
+				</div>
+			{% endfor %}
+		</section>
+		{% include "textedit-script.html" %}
+	{% endif %}
 {% endblock %}

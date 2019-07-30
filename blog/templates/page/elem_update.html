@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block head %}
+  {{ super() }}
+  {% include "textedit-head.html" %}
+{% endblock head %}
+
+{% block header %}
+  <h1>{% block title %}Edit "{{ elem['title'] }}"{% endblock %}</h1>
+{% endblock %}
+
+
+{% block content %}
+  <form method="post">
+    <label for="header">Header</label>
+    <input name="header" id="header"
+      value="{{ request.form['header'] or elem['title'] }}" required>
+    <label for="body">Body</label>
+    <textarea name="body" id="body" class="summer">{{ request.form['body'] or elem['body'] }}</textarea>
+    <input type="submit" value="Save">
+  </form>
+  <hr>
+  <form action="{{ url_for('pages.elem_delete', id=elem['id']) }}" method="post">
+    <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure?');">
+  </form>
+  
+  {% include "textedit-script.html" %}
+{% endblock %}
