@@ -2,23 +2,22 @@ import os
 import click
 from flask import Flask, url_for
 
-from flask_sqlalchemy import SQLAlchemy # https://git.io/fjSr8
+from flask_sqlalchemy import SQLAlchemy  # https://git.io/fjSr8
 from flask.cli import with_appcontext
 
-from flask_admin import Admin # http://tiny.cc/exbhaz
+from flask_admin import Admin  # http://tiny.cc/exbhaz
 from blog.admin.models import MyModelView
-# from flask_admin.menu import MenuLink
 
-from flask_login import LoginManager # https://git.io/fjSrc
+from flask_login import LoginManager  # https://git.io/fjSrc
 
 # markdown renderer
-from flask_misaka import Misaka # http://tiny.cc/7ybhaz
+from flask_misaka import Misaka  # http://tiny.cc/7ybhaz
 
 # from blog.blog import User, Post
 
 db = SQLAlchemy()
 login_manager = LoginManager()
-md = Misaka()
+md = Misaka()  # Misaka engine object.
 
 
 def create_app(test_config=None):
@@ -27,10 +26,11 @@ def create_app(test_config=None):
     db_url = os.environ.get("DATABASE_URL")
 
     if db_url is None:
-        db_url = "mysql://root:@localhost/flask" # This should be changed for your own configuration
+        # This should be changed for your own configuration
+        db_url = "mysql+mysqlconnector://root:djdI7f8tu@localhost/flask"
 
     # Change this secret key PLEASE http://tiny.cc/q3bhaz
-    app.config.from_mapping(SECRET_KEY='VfuhtDAxKTKsFSWppGccfA==', 
+    app.config.from_mapping(SECRET_KEY='VfuhtDAxKTKsFSWppGccfA==',
                             SQLALCHEMY_DATABASE_URI=db_url,
                             FLASK_ADMIN_SWATCH='superhero',
                             )
@@ -45,8 +45,10 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    """This section sets up Flask Login; see Flask Login docs for more info"""
-    init_login(app) 
+    init_login(app)
+    """
+        This section sets up Flask Login; see Flask Login docs for more info
+    """
 
     from blog.blog.model import Post, Comment
     from blog.auth.model import User
@@ -94,13 +96,18 @@ def create_app(test_config=None):
 
 
 def init_db():
+    """
+        Resets tables.
+    """
     db.drop_all()
     db.create_all()
 
 
 def init_login(app, login_manager=login_manager):
-    """Initializes the login section of the web app. See
-       Flask Login docs for more"""
+    """
+    Initializes the login section of the web app. See
+    Flask Login docs for more
+    """
     login_manager.init_app(app)
 
     # Create user loader function
@@ -110,7 +117,6 @@ def init_login(app, login_manager=login_manager):
         return User.query.get(user_id)
 
 
-# click.command() defines a command line command
 @click.command('init-db')
 @with_appcontext
 def init_db_command():
