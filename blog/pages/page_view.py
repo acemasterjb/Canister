@@ -1,3 +1,5 @@
+from datetime import date
+
 from flask import abort, Blueprint, g, flash
 from flask import redirect, render_template, request
 
@@ -42,7 +44,9 @@ def page_view(path):
 @bp.route('/create_elem', methods=('GET', 'POST'))
 @login_required
 def elem_new():
-
+    """
+        Create a new PageElement class on a Page class
+    """
     if request.method == 'POST':
         title = request.form['header']
         body = request.form['body']
@@ -108,6 +112,9 @@ def elem_delete(id):
 @bp.route('/new_page', methods=('GET', 'POST'))
 @login_required
 def page_new():
+    # now = datetime.now()
+    # day = now.strftime("%d")
+    # month = now.strftime("%m")
 
     if request.method == 'POST':
         path_name = request.form['path_name']
@@ -115,7 +122,8 @@ def page_new():
         error = None
 
         if not path_name:
-            error = "You need to give this page name, no spaces or special characters allowed.\n"
+            error = "You need to give this page a name, "
+            error += "no spaces or special characters allowed.\n"
             error += "Underscores, numbers and '%' are permitted."
         if error is not None:
             flash(error)

@@ -7,7 +7,6 @@ from flask.cli import with_appcontext
 
 from flask_admin import Admin  # http://tiny.cc/exbhaz
 from blog.admin.models import MyModelView
-# from flask_admin.menu import MenuLink
 
 from flask_login import LoginManager  # https://git.io/fjSrc
 
@@ -18,12 +17,16 @@ from flask_misaka import Misaka  # http://tiny.cc/7ybhaz
 
 db = SQLAlchemy()
 login_manager = LoginManager()
-md = Misaka()
+md = Misaka()  # Misaka engine object.
 
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
+    import blog.admin.model.MyAdminIndexView as index
+    admin = Admin(app, name='blog', template_mode='bootstrap3',
+                  index_view=index())
     db_url = os.environ.get("DATABASE_URL")
+
     if db_url is None:
         # This should be changed for your own configuration
         db_url = "mysql+mysqlconnector://root:djdI7f8tu@localhost/flask"
@@ -33,8 +36,6 @@ def create_app(test_config=None):
                             SQLALCHEMY_DATABASE_URI=db_url,
                             FLASK_ADMIN_SWATCH='superhero',
                             )
-
-    admin = Admin(app, name='blog', template_mode='bootstrap3')
 
     if test_config is None:
         app.config.from_pyfile('config.py', silent=True)
@@ -46,8 +47,10 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    """This section sets up Flask Login; see Flask Login docs for more info"""
     init_login(app)
+    """
+        This section sets up Flask Login; see Flask Login docs for more info
+    """
 
     from blog.blog.model import Post, Comment
     from blog.auth.model import User
@@ -95,13 +98,18 @@ def create_app(test_config=None):
 
 
 def init_db():
+    """
+        Resets tables.
+    """
     db.drop_all()
     db.create_all()
 
 
 def init_login(app, login_manager=login_manager):
-    """Initializes the login section of the web app. See
-       Flask Login docs for more"""
+    """
+    Initializes the login section of the web app. See
+    Flask Login docs for more
+    """
     login_manager.init_app(app)
 
     # Create user loader function
@@ -111,7 +119,6 @@ def init_login(app, login_manager=login_manager):
         return User.query.get(user_id)
 
 
-# click.command() defines a command line command
 @click.command('init-db')
 @with_appcontext
 def init_db_command():
