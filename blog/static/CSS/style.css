@@ -1,9 +1,9 @@
 @charset "utf-8";
 /*@import url('https://fonts.googleapis.com/css?family=Roboto|Open+Sans&display=swap');*/
 
-html { font-family: Arial, Verdana, sans-serif; background: #ebe1dd; padding: 1rem; }
-h1 { font-family: Arial, Georgia, serif; color: #cc9d85; margin: 1rem 0; }
-a { color: #cc9d85; }
+html { font-family: Arial, Verdana, sans-serif; background: #F1F2ED; padding: 1rem; }
+h1 { font-family: Arial, Georgia, serif; color: #414A4C; margin: 1rem 0; }
+a { color: #414A4C; text-decoration: none;}
 hr { border: none; border-top: 1px solid lightgray; }
 nav { background: #ebf3f5; display: flex; align-items: center; padding: 0 0.5rem; border-radius: 2.75px; }
 nav .float-left {flex: auto; margin: 0;}
@@ -19,7 +19,7 @@ nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
 .content label { font-weight: bold; margin-bottom: 0.5em; }
 .content input, .content textarea { margin-bottom: 1em; }
 .content textarea { min-height: 12em; resize: vertical; }
-.flash { margin: 1em 0; padding: 1em; background: #cae6f6; border: 1px solid #cc9d85; }
+.flash { margin: 1em 0; padding: 1em; background: #cae6f6; border: 1px solid #414A4C; }
 .float-left { display: flex; float: left; }
 .pages { margin: 0.5em; text-decoration: none; }
 .page_num { margin-left: 50%;}

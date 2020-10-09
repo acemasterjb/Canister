@@ -4,6 +4,7 @@ from flask import (
     Blueprint, flash, g, redirect,
     render_template, request, session, url_for
 )
+from flask_login import login_user, logout_user
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from blog.auth.model import User
@@ -37,9 +38,10 @@ def register():
             user = User(username=username,
                         password=generate_password_hash(password),
                         email=email,
-                        isAdmin=1)
+                        isAdmin=0)
             db.session.add(user)
-
+            if user.isAdmin:
+                login_user(user)
             # generate_password_hash() is used to securely hash the password
 
             # Save the changes
@@ -72,6 +74,8 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user.uid
+            if user.isAdmin:
+                login_user(user)
             return redirect(url_for('blog.index'))
 
         flash(error)
@@ -79,8 +83,18 @@ def login():
     return render_template('auth/login.html')
 
 
+@bp.route('/logout')
+def logout():
+    user = load_logged_in_user()
+    if user.isAdmin:
+        logout_user()
+    session.clear()
+    return redirect(url_for('blog.index'))
+
 # bp.before_app_request() registers a function that runs
 # before the view function, no matter what URL is requested
+
+
 @bp.before_app_request
 def load_logged_in_user():
     user_id = session.get('user_id')
@@ -89,12 +103,6 @@ def load_logged_in_user():
         g.user = None
     else:
         g.user = User.query.get(user_id)
-
-
-@bp.route('/logout')
-def logout():
-    session.clear()
-    return redirect(url_for('blog.index'))
 
 
 def login_required(view):

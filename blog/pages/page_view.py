@@ -1,12 +1,12 @@
 from flask import abort, Blueprint, g, flash
 from flask import redirect, render_template, request
-from flask import url_for
 
 from blog.auth.views import login_required
 from blog.pages.model import Page
 from blog.pages.model import PageElement
 
 bp = Blueprint('pages', __name__)
+
 
 def get_page(path):
     page = Page.query.filter_by(path_name=path).first()
@@ -16,6 +16,7 @@ def get_page(path):
 
     return page
 
+
 @bp.route('/<string:path>', methods=('GET',))
 def page_view(path):
 
@@ -24,17 +25,21 @@ def page_view(path):
     pages = Page.query.all()
     # name = page.path_name
 
-    page_sections = PageElement.query.filter_by(parent=page.path_name).order_by(PageElement.created_at.asc()).all()
+    page_sections = PageElement.query.filter_by(
+        parent=page.path_name).order_by(PageElement.created_at.asc()).all()
 
     # Placement for POST directive to create page elements
 
     return render_template('blog/page.html',
-                            page=page, pages=pages, page_sections=page_sections)
+                           page=page, pages=pages, page_sections=page_sections)
 
-"""This section hold the methods for creating, updating and deleting elements
-   or sections on pages. These elements are stored in the database as PageElement(s)"""
 
-@bp.route('/create_elem', methods=('GET','POST'))
+"""This section hold the methods for creating, updating and
+    deleting elements or sections on pages. These elements
+    are stored in the database as PageElement(s)"""
+
+
+@bp.route('/create_elem', methods=('GET', 'POST'))
 @login_required
 def elem_new():
 
@@ -46,12 +51,13 @@ def elem_new():
 
         if not title:
             error = "You need to give this page element a header."
-        
+
         if error is not None:
             flash(error)
         else:
             from blog import db
-            elem = PageElement(title = title, body = body, author_id = g.user.uid, parent = parent)
+            elem = PageElement(title=title, body=body,
+                               author_id=g.user.uid, parent=parent)
             db.session.add(elem)
             db.session.commit()
 
@@ -59,12 +65,13 @@ def elem_new():
 
     return render_template('/page/new_elem.html')
 
+
 @bp.route('/section/update', methods=('GET', 'POST'))
 @login_required
 def elem_update():
     section_id = request.args.get('section')
     page_section = PageElement.query.get(section_id)
-    
+
     if request.method == 'POST':
         title = request.form['header']
         body = request.form['body']
@@ -83,7 +90,8 @@ def elem_update():
             return page_view(page_section.parent)
 
     return render_template('page/elem_update.html', elem=page_section)
-    
+
+
 @bp.route('/section/<int:id>/delete', methods=('POST',))
 @login_required
 def elem_delete(id):
@@ -93,7 +101,9 @@ def elem_delete(id):
     db.session.commit()
     return page_view(page_section.parent)
 
+
 """END SECTION"""
+
 
 @bp.route('/new_page', methods=('GET', 'POST'))
 @login_required
@@ -111,7 +121,8 @@ def page_new():
             flash(error)
         else:
             from blog import db
-            page = Page(path_name = path_name, page_name = page_name, author_id = g.user.uid)
+            page = Page(path_name=path_name, page_name=page_name,
+                        author_id=g.user.uid)
             db.session.add(page)
             db.session.commit()
 
@@ -119,12 +130,13 @@ def page_new():
 
     return render_template('/page/new_page.html')
 
+
 @bp.route('/<string:path>/delete', methods=('GET',))
 @login_required
 def page_del(path):
 
     from blog import db
-    page = Page.query.filter_by(path_name = path).first()
+    page = Page.query.filter_by(path_name=path).first()
     db.session.delete(page)
     db.session.commit()
     return redirect('/')

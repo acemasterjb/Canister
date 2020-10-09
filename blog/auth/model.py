@@ -1,9 +1,11 @@
 from blog import db
 
+from flask_login import UserMixin
+
 # from blog.blog.post_view import Comment
 
 
-class User(db.Model):
+class User(db.Model, UserMixin):
     uid = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(150), nullable=False)
