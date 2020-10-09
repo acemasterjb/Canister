@@ -22,7 +22,9 @@ md = Misaka()  # Misaka engine object.
 
 def create_app(test_config=None):
     app = Flask(__name__, instance_relative_config=True)
-    admin = Admin(app, name='blog', template_mode='bootstrap3')
+    import blog.admin.model.MyAdminIndexView as index
+    admin = Admin(app, name='blog', template_mode='bootstrap3',
+                  index_view=index())
     db_url = os.environ.get("DATABASE_URL")
 
     if db_url is None:

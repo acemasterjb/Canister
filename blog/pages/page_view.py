@@ -1,3 +1,5 @@
+from datetime import date
+
 from flask import abort, Blueprint, g, flash
 from flask import redirect, render_template, request
 from flask import url_for
@@ -113,6 +115,9 @@ def elem_delete(id):
 @bp.route('/new_page', methods=('GET', 'POST'))
 @login_required
 def page_new():
+    # now = datetime.now()
+    # day = now.strftime("%d")
+    # month = now.strftime("%m")
 
     if request.method == 'POST':
         path_name = request.form['path_name']

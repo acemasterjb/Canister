@@ -33,5 +33,6 @@ nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
 .post-header{line-height: 1.75em}
 .side-left { margin-top: 5.9em; }
 .side-card { background: #f7f2ef; box-shadow: gray -1px 1px 2px; border: solid 0.1px lightgray; border-radius: 5px; padding: 0.05em 1em 0.75em 1em; margin: 0.75em 0 1.75em 0; line-height: 1.8em; width:50%; margin-top:0.8em; margin-bottom:0.8em; margin-left:auto; margin-right:auto;}
-input.danger { color: #cc2f2e; }
+input[type="text"], input[type="email"], input[type="password"] {width: 15em;}
 input[type=submit] { align-self: start; min-width: 10em; }
+input.danger { color: #cc2f2e; }

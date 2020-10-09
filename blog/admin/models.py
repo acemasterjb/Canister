@@ -6,7 +6,7 @@ import flask_login as login
 
 class MyModelView(sqla.ModelView):
     def is_accessible(self):
-        return login.current_user.is_authenticated and login.current_user.isAdmin
+        return login.current_user.is_authenticated
 
     def inaccessible_callback(self, name, **kwargs):
         # redirect to login page if user doesn't have access
@@ -20,7 +20,7 @@ class MyAdminIndexView(admin.AdminIndexView):
             return redirect(url_for('.loginview'))
         return super(MyAdminIndexView, self).index()
 
-    @admin.expose('/login/', methods=('GET', 'POST'))
+    @admin.expose('/login', methods=('GET', 'POST'))
     def loginview(self):
         from blog.auth.model import User
         from flask import check_password_hash, session

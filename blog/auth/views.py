@@ -37,7 +37,7 @@ def register():
             user = User(username=username,
                         password=generate_password_hash(password),
                         email=email,
-                        isAdmin=1)
+                        isAdmin=True)
             db.session.add(user)
 
             # generate_password_hash() is used to securely hash the password

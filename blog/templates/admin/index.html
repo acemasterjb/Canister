@@ -1,9 +1,10 @@
 {% extends 'admin/master.html' %}
 
 {% block body %}
-	{% if current_user.is_authenticated and current_user.isAdmin==1%}
+	{% if current_user.isAdmin %}
 		<h1>blog Admin Page</h1>
-	{% else %}
+	{% else %}	
+		<p>{{ current_user.isAdmin }}</p></br>
 		<form method="POST">
 		    <label for="username">Username</label>
 		    <input name="username" id="username" required>
