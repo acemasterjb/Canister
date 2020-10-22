@@ -1,8 +1,12 @@
 venv/
 tests/
+res/
 
 *.pyc
 blog/__pycache__/
+blog/res
+
+blog/static/res
 
 instance/
 

@@ -1,4 +1,5 @@
-from datetime import date
+# from datetime import date
+from math import floor
 
 from flask import abort, Blueprint, g, flash
 from flask import redirect, render_template, request
@@ -117,14 +118,15 @@ def page_new():
     # month = now.strftime("%m")
 
     if request.method == 'POST':
-        path_name = request.form['path_name']
         page_name = request.form['page_name']
+        buff = len(page_name) * floor(len(page_name) / 11)
+        path_name = page_name[0:(buff - 1)].replace(' ', '-')
         error = None
 
         if not path_name:
-            error = "You need to give this page a name, "
-            error += "no spaces or special characters allowed.\n"
-            error += "Underscores, numbers and '%' are permitted."
+            error = """You need to give this page a name,
+                        no spaces or special characters allowed.\n
+                        Underscores, numbers and '%' are permitted."""
         if error is not None:
             flash(error)
         else:

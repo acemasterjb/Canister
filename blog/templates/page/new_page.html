@@ -1,19 +1,17 @@
 {% extends "base.html" %}
 
-{% block header %}
-    <h1>{% block title %} New Page Editor - {% endblock title %}</h1>
-{% endblock header %}
+{% block index %}
+  {% block header %}
+      <h1>{% block title %} New Page Editor - {% endblock title %}</h1>
+  {% endblock header %}
 
-{% block content %}
-    <form method="post">
-        <label for="path_name">Path Name</label>
-        <input name='path_name' id='path_name' value="{{ request.form['path_name'] }}"
-               required
-               placeholder="No Spaces, or special characters besides a '%', '-' or '_'">
-        <label for="page_name">Page Name</label>
-        <input name='page_name' id='page_name' value="{{ request.form['page_name'] }}"
-               required
-               placeholder="">
-        <input type='submit' value='Save'>
-    </form>
-{% endblock content %}
+  {% block content %}
+      <form method="post">
+          <label for="page_name">Page Name</label>
+          <input type="text" name='page_name' id='page_name' value="{{ request.form['page_name'] }}"
+                 required
+                 placeholder="">
+          <input type='submit' value='Save'>
+      </form>
+  {% endblock content %}
+{% endblock %}

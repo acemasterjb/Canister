@@ -9,7 +9,7 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from blog.auth.model import User
 
-# create a bluepriny
+# create a blueprint
 # a Blueprint is a group of views and code that will be run when
 # certain actions are called
 bp = Blueprint('auth', __name__, url_prefix='/auth')
@@ -74,8 +74,7 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user.uid
-            if user.isAdmin:
-                login_user(user)
+            login_user(user)
             return redirect(url_for('blog.index'))
 
         flash(error)
@@ -85,9 +84,7 @@ def login():
 
 @bp.route('/logout')
 def logout():
-    user = load_logged_in_user()
-    if user.isAdmin:
-        logout_user()
+    logout_user()
     session.clear()
     return redirect(url_for('blog.index'))
 

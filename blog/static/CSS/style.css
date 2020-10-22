@@ -1,7 +1,8 @@
 @charset "utf-8";
 /*@import url('https://fonts.googleapis.com/css?family=Roboto|Open+Sans&display=swap');*/
 
-html { font-family: Arial, Verdana, sans-serif; background: #F1F2ED; padding: 1rem; }
+
+html { font-family: 'Roboto', sans-serif; background: #F1F2ED; padding: 1rem; }
 h1 { font-family: Arial, Georgia, serif; color: #414A4C; margin: 1rem 0; }
 a { color: #414A4C; text-decoration: none;}
 hr { border: none; border-top: 1px solid lightgray; }
@@ -11,7 +12,7 @@ nav .float-left {flex: auto; margin: 0;}
 nav .float-left h1 a { text-decoration: none; padding: 0.25rem 0.5rem; }
 nav ul  { display: flex; list-style: none; margin: 0; padding: 0; }
 nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
-.content { }
+#head-img { height: 90px; width: 90px; border-radius: 50%; object-fit: cover; }
 .content > header { border-bottom: 1px solid lightgray; display: flex; align-items: flex-end; }
 .content > header h1 { flex: auto; margin: 1rem 0 0.25rem 0; }
 .content:last-child { margin-bottom: 0; }
@@ -31,6 +32,9 @@ nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
 .post .body { white-space: pre-line; padding: 0 15% 0 15%;}
 .post p{ padding: 0 15% 0 15%; }
 .post-header{line-height: 1.75em}
+.section { display: flex; justify-content: center; align-items: center; width: 100%; height: 100vh; border-bottom: 0.5px solid grey; }
+.section > h2 { margin-right: 0.2em; }
+.show { display: block; }
 .side-left { margin-top: 5.9em; }
 .side-card { background: #f7f2ef; box-shadow: gray -1px 1px 2px; border: solid 0.1px lightgray; border-radius: 5px; padding: 0.05em 1em 0.75em 1em; margin: 0.75em 0 1.75em 0; line-height: 1.8em; width:50%; margin-top:0.8em; margin-bottom:0.8em; margin-left:auto; margin-right:auto;}
 input[type="text"], input[type="email"], input[type="password"] {width: 15em;}

@@ -7,9 +7,11 @@
   <link rel="stylesheet" href="{{ url_for('static', filename='CSS/style.css') }}">
   <link rel="stylesheet" href="{{ url_for('static', filename='CSS/pure/grid.css') }}">
   <script type="text/javascript" src="{{ url_for('static', filename='JS/jquery.js') }}"></script>
+  <script type="text/javascript" src="{{ url_for('static', filename='JS/base_script.js') }}"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   {% endblock %}
 </head>
-<nav>
+{# <nav>
   
   <ul class="float-left">
     <h1><a href="{{ url_for('blog.index') }}">Blog</a></h1>
@@ -26,25 +28,25 @@
       <li><a href="{{ url_for('auth.login') }}">Log In</a>
     {% endif %}
   </ul>
-</nav>
-<section class="content">
+</nav> #}
+<div class="content">
     <aside class="side-left pure-u-2-9">
-      {% if g.user.isAdmin == 1 %}
+      {% if g.user %}
         <div class="side-card">
+          <span>{{ g.user['username'] }}</span></br>
+          <a href="{{ url_for('auth.logout') }}">Log Out</a>
+        {% if g.user.isAdmin == 1 %}
+          <hr>
             <a href="/admin">Admin Page</a><br/>
             <a href="{{ url_for('pages.page_new') }}">Create New Page</a>
+        {% endif %}
         </div>
       {% endif %}
+      
     </aside>
 
-  <div class="center pure-u-13-18">
-    <header>
-      {% block header %}{% endblock %}
-    </header>
-    {% for message in get_flashed_messages() %}
-      <div class="flash">{{ message }}</div>
-    {% endfor %}
-    {% block content %}{% endblock %}
+  <div class="center pure-u-9-18">
+    {% block index %}{% endblock %}
   </div>
   <aside class="side-left pure-u-2-9"><p></p></aside>
-</section>
+</div>

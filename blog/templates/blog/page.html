@@ -1,29 +1,31 @@
 {% extends "base.html" %}
 
-{% block head %}
-    {{ super() }}
-{% endblock head %}
+{% block index %}
+    {% block head %}
+        {{ super() }}
+    {% endblock head %}
 
-{% block header %}
-    <h1>{% block title %} {{ page['page_name'] }} {% endblock title %}</h1>
-{% endblock header %}
+    {% block header %}
+        <h1>{% block title %} {{ page['page_name'] }} {% endblock title %}</h1>
+    {% endblock header %}
 
 
-{% block content %}
-    {% for section in page_sections %}
-        <div class='element'>
-            <h2> {{ section['title'] }} </h2>
-            {% if g.user.isAdmin == 1 %}
-                <a href="/section/update?section={{ section.id }}">Edit Section</a>
-                <br/>
-            {% endif %}
-            <p> {{ section['body']|markdown }} </p>
-        </div>
-    {% endfor %}
-    
-    {% if g.user.isAdmin == 1 %}
-        <a href="/create_elem?parent={{ page['path_name'] }}">New Section</a>
-        <hr>
-        {# <a href="{{ url_for('pages.page_del', path=page['path_name']) }}">Delete Page</a> #}
-    {% endif %}
-{% endblock content %}
+    {% block content %}
+        {% for section in page_sections %}
+            <div class='element'>
+                <h2> {{ section['title'] }} </h2>
+                {% if g.user.isAdmin == 1 %}
+                    <a href="/section/update?section={{ section.id }}">Edit Section</a>
+                    <br/>
+                {% endif %}
+                <p> {{ section['body']|markdown }} </p>
+            </div>
+        {% endfor %}
+        
+        {% if g.user.isAdmin == 1 %}
+            <a href="/create_elem?parent={{ page['path_name'] }}">New Section</a>
+            <hr>
+            {# <a href="{{ url_for('pages.page_del', path=page['path_name']) }}">Delete Page</a> #}
+        {% endif %}
+    {% endblock content %}
+{% endblock %}

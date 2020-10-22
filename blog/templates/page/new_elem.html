@@ -1,23 +1,25 @@
 {% extends 'base.html' %}
 
-{% block header %}
-  <h1>{% block title %} New Page Element Editor - {% endblock %}</h1>
-{% endblock %}
-{% block head %}
-  {{ super() }}
-  {% include "textedit-head.html" %}
-{% endblock %}
+{% block index %}
+  {% block header %}
+    <h1>{% block title %} New Page Element Editor - {% endblock %}</h1>
+  {% endblock %}
+  {% block head %}
+    {{ super() }}
+    {% include "textedit-head.html" %}
+  {% endblock %}
 
-{% block content %}
-    <form method="post">
-        <label for="header">Header</label>
-        <input name='header' id='header' value="{{ request.form['header'] }}"
-               required
-               placeholder="No Spaces, or special characters besides a '%', '-' or '_'">
-        <label for="body">Body</label>
-        <textarea name="body" id="body" class="summer">{{ request.form['body'] }}</textarea>
-        <input type='submit' value='Save'>
-    </form>
+  {% block content %}
+      <form method="post">
+          <label for="header">Title</label>
+          <input type="text" name='header' id='header' value="{{ request.form['header'] }}"
+                 required
+                 placeholder="No Spaces, or special characters besides a '%', '-' or '_'">
+          <label for="body">Body</label>
+          <textarea name="body" id="body" class="summer">{{ request.form['body'] }}</textarea>
+          <input type='submit' value='Save'>
+      </form>
 
     {% include "textedit-script.html" %}
-{% endblock content %}
+  {% endblock content %}
+{% endblock %}
