@@ -1,9 +1,9 @@
-from os import path, getcwd
+# from os import path, getcwd
 
 from flask import Blueprint, flash, g
 from flask import redirect, render_template, request, url_for
 from werkzeug.exceptions import abort
-from werkzeug.utils import secure_filename
+# from werkzeug.utils import secure_filename
 
 from blog.auth.views import login_required
 from blog.blog.model import Post
@@ -16,11 +16,13 @@ bp = Blueprint('blog', __name__)
 
 @bp.route('/')
 def index():
+    blog_name = ""  # change this to your blog's title
     page = request.args.get('page', 1, type=int)
     posts = Post.query.order_by(
         Post.created_at.desc()).paginate(per_page=5, page=page)
     pages = Page.query.all()
-    return render_template('blog/index.html', posts=posts, pages=pages, User=User)
+    return render_template('blog/index.html', posts=posts,
+                           pages=pages, User=User, blog_name=blog_name)
 
 
 @bp.route('/create', methods=('GET', 'POST'))
