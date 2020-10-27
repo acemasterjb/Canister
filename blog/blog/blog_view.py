@@ -1,10 +1,6 @@
-# from os import path, getcwd
-# from markdown import markdown
-
 from flask import Blueprint, flash, g
 from flask import redirect, render_template, request, url_for
 from werkzeug.exceptions import abort
-# from werkzeug.utils import secure_filename
 
 from blog.auth.views import login_required
 from blog.blog.model import Post

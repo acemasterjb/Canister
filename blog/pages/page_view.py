@@ -1,7 +1,6 @@
 # from datetime import date
 from math import floor
 
-from markdown import markdown
 from flask import abort, Blueprint, g, flash
 from flask import redirect, render_template, request
 
@@ -114,10 +113,6 @@ def elem_delete(id):
 @bp.route('/new_page', methods=('GET', 'POST'))
 @login_required
 def page_new():
-    # now = datetime.now()
-    # day = now.strftime("%d")
-    # month = now.strftime("%m")
-
     if request.method == 'POST':
         page_name = request.form['page_name']
         buff = floor(len(page_name) * floor(len(page_name) / 11) * 0.4)

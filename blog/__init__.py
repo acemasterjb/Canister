@@ -7,15 +7,12 @@ from flask.cli import with_appcontext
 
 from flask_admin import Admin  # http://tiny.cc/exbhaz
 from blog.admin.models import MyModelView
-# from flask_admin.menu import MenuLink
 
 from flask_login import LoginManager  # https://git.io/fjSrc
 
 # markdown renderer
-import markdown
-from flask import Markup
-# from jinja2 import Environment, PackageLoader, select_autoescape
-# from flask_misaka import Misaka  # http://tiny.cc/7ybhaz
+import markdown  # renders markdown to html
+from flask import Markup  # marks html string as being safe for inclusion
 
 # from blog.blog import User, Post
 

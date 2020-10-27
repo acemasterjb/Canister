@@ -11,24 +11,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   {% endblock %}
 </head>
-{# <nav>
-  
-  <ul class="float-left">
-    <h1><a href="{{ url_for('blog.index') }}">Blog</a></h1>
-    {% for page in pages %}
-      <h4><a class="pages" href="/{{ page.path_name }}">{{ page.page_name }}</a></h4>
-    {% endfor %}
-  </ul>
-  <ul>
-    {% if g.user %}
-      <li><span>{{ g.user['username'] }}</span>
-      <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
-    {% else %}
-      <li><a href="{{ url_for('auth.register') }}">Register</a>
-      <li><a href="{{ url_for('auth.login') }}">Log In</a>
-    {% endif %}
-  </ul>
-</nav> #}
 <div class="content">
     <aside class="side-left pure-u-2-9">
       {% if g.user %}

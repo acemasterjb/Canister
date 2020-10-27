@@ -20,6 +20,6 @@ setup(
     install_requires=[
         'flask>=1.1.2', 'flask_admin>=1.5.6',
         'flask_login>=0.5.0', 'flask_sqlalchemy>=2.4.4',
-        'flask_misaka>=1.0.0', 'SQLAlchemy>=1.3.19'
+        'SQLAlchemy>=1.3.19'
     ],
 )
