@@ -1,5 +1,6 @@
 from flask import abort, Blueprint, g, flash
 from flask import redirect, render_template, request
+from markdown import markdown
 
 from blog.blog.blog_view import get_post
 from blog.blog.model import Comment

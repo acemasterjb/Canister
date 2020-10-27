@@ -13,6 +13,7 @@ nav .float-left h1 a { text-decoration: none; padding: 0.25rem 0.5rem; }
 nav ul  { display: flex; list-style: none; margin: 0; padding: 0; }
 nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
 #head-img { height: 90px; width: 90px; border-radius: 50%; object-fit: cover; }
+#home { display: flex; justify-content: center; align-items: center; }
 .content > header { border-bottom: 1px solid lightgray; display: flex; align-items: flex-end; }
 .content > header h1 { flex: auto; margin: 1rem 0 0.25rem 0; }
 .content:last-child { margin-bottom: 0; }
@@ -24,7 +25,7 @@ nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
 .float-left { display: flex; float: left; }
 .pages { margin: 0.5em; text-decoration: none; }
 .page_num { margin-left: 50%;}
-.post { background: #f7f2ef; box-shadow: gray -2px 2px 8px; border: solid 0.1px lightgray; border-radius: 5px; padding: 0.05em 1em 0.75em 1em; margin: 0.75em 0 1.75em 0; line-height: 1.8em;}
+.post { background: #F1F2ED; border: solid 0.1px lightgray; border-radius: 5px; padding: 0.05em 1em 0.75em 1em; margin: 0.75em 0 1.75em 0; line-height: 1.8em;}
 .post > header { display: flex; align-items: flex-end; font-size: 0.85em; }
 .post > header > div:first-of-type { flex: auto; }
 .post > header h1 { font-size: 1.5em; margin: 10px 0 -3px 0; }
@@ -32,8 +33,8 @@ nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
 .post .body { white-space: pre-line; padding: 0 15% 0 15%;}
 .post p{ padding: 0 15% 0 15%; }
 .post-header{line-height: 1.75em}
-.section { display: flex; justify-content: center; align-items: center; width: 100%; height: 100vh; border-bottom: 0.5px solid grey; }
-.section > h2 { margin-right: 0.2em; }
+.section { width: 100%; height: 100vh; border-bottom: 0.5px solid grey; }
+.section > h2 { margin-right: 0.2em; color: #414A4C;}
 .show { display: block; }
 .side-left { margin-top: 5.9em; }
 .side-card { background: #f7f2ef; box-shadow: gray -1px 1px 2px; border: solid 0.1px lightgray; border-radius: 5px; padding: 0.05em 1em 0.75em 1em; margin: 0.75em 0 1.75em 0; line-height: 1.8em; width:50%; margin-top:0.8em; margin-bottom:0.8em; margin-left:auto; margin-right:auto;}

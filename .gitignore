@@ -1,6 +1,7 @@
 venv/
 tests/
 res/
+ssh/
 
 *.pyc
 blog/__pycache__/

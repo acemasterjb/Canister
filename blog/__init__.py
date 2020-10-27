@@ -12,13 +12,15 @@ from blog.admin.models import MyModelView
 from flask_login import LoginManager  # https://git.io/fjSrc
 
 # markdown renderer
-from flask_misaka import Misaka  # http://tiny.cc/7ybhaz
+import markdown
+from flask import Markup
+# from jinja2 import Environment, PackageLoader, select_autoescape
+# from flask_misaka import Misaka  # http://tiny.cc/7ybhaz
 
 # from blog.blog import User, Post
 
 db = SQLAlchemy()
 login_manager = LoginManager()
-md = Misaka()
 
 
 def create_app(test_config=None):
@@ -89,7 +91,11 @@ def create_app(test_config=None):
                 values['q'] = int(os.stat(file_path).st_mtime)
         return url_for(endpoint, **values)
 
-    md.init_app(app)
+    @app.template_filter('markdown')
+    def md(text):
+        return(Markup(markdown.markdown(text)))
+
+    app.jinja_env.filters['markdown'] = md
 
     return app
 

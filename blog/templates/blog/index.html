@@ -4,7 +4,7 @@
   {% for message in get_flashed_messages() %}
     <div class="flash">{{ message }}</div>
   {% endfor %}
-  <section class="section">
+  <section class="section" id="home">
     {% block intro %}
       <h2>{{ blog_name }}</h2>
       <img src="static/res/h.png" id="head-img">
@@ -16,16 +16,15 @@
       </nav>
     {% endblock %}
   </section>
-  <header>
-    {% block header %}
-      <h1>{% block title %}Posts{% endblock %}</h1>
-    {% if g.user and current_user.isAdmin==1 %}
-      <a class="action" href="{{ url_for('blog.create') }}">New</a>
-    {% endif %}
-  {% endblock %}
-  </header>
-  <section class="section" id="posts">
-    {% block posts %}
+  {% block posts %}
+    <section class="section" id="posts">
+      {% block header %}
+        <header>
+          {% if g.user and current_user.isAdmin==1 %}
+            <a class="action" href="{{ url_for('blog.create') }}">New</a>
+          {% endif %}
+        </header>
+      {% endblock %}
       {% for post in posts.items %}
         <article class="post">
           <header>
@@ -41,7 +40,13 @@
         <p>...</p>
         </article>
         {% endfor %}
-        <div class='page_num'>
+    {# {% else %}
+    <article class="post"><h1> No entries here so far </h1></article> #}
+    </section>
+  {% endblock %}
+  <footer>
+    {% block footer %}
+      <div class='page_num'>
         {% for page_num in posts.iter_pages(left_edge=1, right_edge=1, left_current=2, right_current=2) %}
           {% if page_num %}
             <a href="{{ url_for('blog.index', page=page_num) }}"> {{ page_num }}</a>
@@ -49,13 +54,8 @@
             <p>...</p>
           {% endif %}
         {% endfor %}
-    </div>
-    {# {% else %}
-    <article class="post"><h1> No entries here so far </h1></article> #}
+      </div>
     {% endblock %}
-  </section>
-  <footer>
-    {% block footer %}{% endblock %}
   </footer>
 
 {% endblock %}

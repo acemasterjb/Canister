@@ -1,6 +1,7 @@
 # from datetime import date
 from math import floor
 
+from markdown import markdown
 from flask import abort, Blueprint, g, flash
 from flask import redirect, render_template, request
 
@@ -119,8 +120,8 @@ def page_new():
 
     if request.method == 'POST':
         page_name = request.form['page_name']
-        buff = len(page_name) * floor(len(page_name) / 11)
-        path_name = page_name[0:(buff - 1)].replace(' ', '-')
+        buff = floor(len(page_name) * floor(len(page_name) / 11) * 0.4)
+        path_name = page_name[:(buff - 1) if buff > 0 else None].replace(' ', '-')
         error = None
 
         if not path_name:
