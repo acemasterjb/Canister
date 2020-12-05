@@ -31,6 +31,7 @@ def create_app(test_config=None):
     app.config.from_mapping(SECRET_KEY='VfuhtDAxKTKsFSWppGccfA==',
                             SQLALCHEMY_DATABASE_URI=db_url,
                             FLASK_ADMIN_SWATCH='superhero',
+                            SQLALCHEMY_TRACK_MODIFICATIONS=False
                             )
 
     admin = Admin(app, name='blog', template_mode='bootstrap3')
@@ -93,7 +94,7 @@ def create_app(test_config=None):
         return(Markup(markdown.markdown(text)))
 
     app.jinja_env.filters['markdown'] = md
-
+    app.env = 'development'
     return app
 
 
@@ -122,6 +123,10 @@ def init_db_command():
     init_db()
     click.echo('Initialized the database.')
 
+
+if __name__ == "__main__":
+    app = create_app()
+    app.run()
 
 # def init_app(app):
 #     # app.teardown_appcontext() tells Flask to call that function

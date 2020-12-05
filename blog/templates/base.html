@@ -11,8 +11,12 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   {% endblock %}
 </head>
+{% block header %}
+{% endblock %}
+{% block content %}
 <div class="content">
-    <aside class="side-left pure-u-2-9">
+  <aside class="side-left pure-u-5-24">
+    {% block aside_left %}
       {% if g.user %}
         <div class="side-card">
           <span>{{ g.user['username'] }}</span></br>
@@ -24,11 +28,12 @@
         {% endif %}
         </div>
       {% endif %}
-      
-    </aside>
+    {% endblock %}
+  </aside>
 
-  <div class="center pure-u-9-18">
+  <div class="center pure-u-14-24">
     {% block index %}{% endblock %}
   </div>
-  <aside class="side-left pure-u-2-9"><p></p></aside>
+  <aside class="side-left pure-u-5-24">{% block aside_right %}<p></p>{% endblock %}</aside>
 </div>
+{% endblock %}

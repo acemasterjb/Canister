@@ -1,5 +1,6 @@
-flask
-flask_admin
-flask_login
-flask_sqlalchemy
-flask_misaka
+flask>=1.1.2
+flask_admin>=1.5.6
+flask_login>=0.5.0
+flask_sqlalchemy>=2.4.4
+markdown
+mysql-connector-python-rf

@@ -23,9 +23,10 @@ def get_comment(id, check_author=True):
 def post(id):
 
     from blog.auth.model import User
+    from blog.pages.model import Page
 
+    pages = Page.query.all()
     post = get_post(id, False)
-
     comments = Comment.query.filter_by(parent_post=post).all()
 
     if request.method == 'POST':
@@ -47,4 +48,5 @@ def post(id):
             return redirect('/post/{}'.format(id))
 
     return render_template('blog/post.html',
-                           post=post, comments=comments, User=User)
+                           post=post, comments=comments, User=User,
+                           pages=pages)
