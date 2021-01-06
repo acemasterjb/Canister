@@ -1,6 +1,15 @@
 
 .post p{ padding: 0 5% 0 5%; }
 
+/*.post div{
+	display: inline-block;
+}*/
+
+.post .body { white-space: pre-line;
+			  padding: 0 !important;
+			  text-align: justify;
+			}
+
 section #comment-box{
 	width: 55%;
 	height: auto;
@@ -26,6 +35,16 @@ section #comment-section h5{
 
 section #comment-section hr{
 	margin: 0.125%;
+}
+
+#toc {
+	border: 0.5px solid rgb(65,74,76, 0.2);
+	border-radius: 4.4px;
+	padding: 0.11em;
+	width: 40%;
+	float: left;
+    margin-right: 1.5em;
+
 }
 
 hr{

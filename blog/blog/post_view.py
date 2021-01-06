@@ -1,3 +1,5 @@
+import re  # regular expression; find headers in post body
+
 from flask import abort, Blueprint, g, flash
 from flask import redirect, render_template, request
 
@@ -28,6 +30,7 @@ def post(id):
     pages = Page.query.all()
     post = get_post(id, False)
     comments = Comment.query.filter_by(parent_post=post).all()
+    headers = None
 
     if request.method == 'POST':
         comment = request.form['comment']
@@ -47,6 +50,11 @@ def post(id):
 
             return redirect('/post/{}'.format(id))
 
+    if request.method == 'GET' and post.toc:
+        regex = re.compile(r'<h[1-6]>[a-zA-Z" "0-9]*</h[1-6]>')
+        headers = regex.findall(post.body)
+
+    print(len(headers))
     return render_template('blog/post.html',
                            post=post, comments=comments, User=User,
-                           pages=pages)
+                           pages=pages, headers=headers)

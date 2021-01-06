@@ -1,0 +1,11 @@
+    <nav>
+      {# <h1><a href="{{ url_for('blog.index') }}">Blog</a></h1> #}
+      
+      <ul class="float-left">
+        <h1><a href="{{ url_for('blog.index') }}">Blog</a></h1>
+        {% for page in pages %}
+          <h4><a class="pages" href="/{{ page.path_name }}">{{ page.page_name }}</a></h4>
+        {% endfor %}
+      </ul>
+    </nav>
+    {# <h1>{{ page['page_name'] }}</h1> #}

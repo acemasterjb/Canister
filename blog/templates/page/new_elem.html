@@ -15,6 +15,7 @@
           <input type="text" name='header' id='header' value="{{ request.form['header'] }}"
                  required
                  placeholder="No Spaces, or special characters besides a '%', '-' or '_'">
+          </br>
           <label for="body">Body</label>
           <textarea name="body" id="body" class="summer">{{ request.form['body'] }}</textarea>
           <input type='submit' value='Save'>

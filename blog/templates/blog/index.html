@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 
+{% block title %} {{ blog_name }} {% endblock %}
+{% block head %}
+  {{ super() }}
+  <script type="text/javascript" src="{{ url_for('static', filename='JS/base_script.js') }}"></script>
+{% endblock %}
+
 {% block index %}
   {% for message in get_flashed_messages() %}
     <div class="flash">{{ message }}</div>

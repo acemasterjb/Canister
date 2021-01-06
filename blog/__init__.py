@@ -28,7 +28,7 @@ def create_app(test_config=None):
         db_url = "mysql+mysqlconnector://root:djdI7f8tu@localhost/flask"
 
     # Change this secret key PLEASE http://tiny.cc/q3bhaz
-    app.config.from_mapping(SECRET_KEY='VfuhtDAxKTKsFSWppGccfA==',
+    app.config.from_mapping(SECRET_KEY='HuQKB+SNydU',
                             SQLALCHEMY_DATABASE_URI=db_url,
                             FLASK_ADMIN_SWATCH='superhero',
                             SQLALCHEMY_TRACK_MODIFICATIONS=False

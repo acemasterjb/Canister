@@ -1,3 +1,5 @@
+import re
+
 from flask import Blueprint, flash, g
 from flask import redirect, render_template, request, url_for
 from werkzeug.exceptions import abort
@@ -9,6 +11,7 @@ from blog.pages.model import Page
 from blog import db
 
 bp = Blueprint('blog', __name__)
+# pages = Page.query.all()
 
 
 @bp.route('/')
@@ -26,9 +29,11 @@ def index():
 @login_required
 def create():
     if request.method == 'POST':
+        pages = Page.query.all()
         title = request.form['title']
         body = request.form['body']
         error = None
+        toc = False
 
         if not title:
             error = 'Title is required.'
@@ -36,7 +41,30 @@ def create():
         if error is not None:
             flash(error)
         else:
-            post = Post(title=title, body=body, author_id=g.user.uid)
+            print(body)
+            try:
+                if request.form['toc'] == 'yes':
+                    toc = True
+                    regex = re.compile(r'<h[1-6]>[a-zA-Z" "0-9]*</h[1-6]>')
+                    headers = regex.findall(body)
+                    # print(headers)
+                    i = 1
+
+                    for header in headers:
+                        # start = body.find(header)
+                        # end = body.find(header) + 1
+
+                        h_link = r"<a id={0} href='#'>".format(i) \
+                            + header + r"</a>"
+
+                        body = re.sub(header, h_link, body)
+
+                        i += 1
+            except Exception:
+                pass
+            # for header in post, turn them into ancor links
+            post = Post(title=title, body=body,
+                        author_id=g.user.uid, toc=toc, pages=pages)
             db.session.add(post)
             db.session.commit()
             return redirect(url_for('blog.index'))
@@ -75,6 +103,7 @@ def update(id):
             post.title = title
             post.body = body
             db.session.commit()
+            print(post.body)
             return redirect(url_for('blog.index'))
 
     return render_template('blog/update.html', post=post)

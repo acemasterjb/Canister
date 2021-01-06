@@ -15,6 +15,7 @@ class Post(db.Model):
     created_at = db.Column(db.DateTime, nullable=False,
                            default=datetime.utcnow)
     author = db.relationship(User, lazy="joined", backref="posts")
+    toc = db.Column(db.Boolean, nullable=False)
 
 
 class Comment(db.Model):
