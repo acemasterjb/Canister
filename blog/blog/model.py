@@ -24,7 +24,7 @@ class Comment(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     author_id = db.Column(db.ForeignKey(User.uid), nullable=False)
     parent = db.Column(db.ForeignKey(Post.id), nullable=False)
-    comment = db.Column(db.String(200), nullable=False)
+    comment = db.Column(db.TEXT(8388608), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False,
                            default=datetime.utcnow)
     post_author = db.relationship(User, lazy="joined", backref="comments")

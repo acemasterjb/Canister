@@ -34,6 +34,7 @@ def create_app(test_config=None):
                             SQLALCHEMY_TRACK_MODIFICATIONS=False
                             )
 
+    # admin CRUD layer object
     admin = Admin(app, name='blog', template_mode='bootstrap3')
 
     if test_config is None:
@@ -41,7 +42,7 @@ def create_app(test_config=None):
     else:
         app.config.from_mapping(test_config)
 
-    try:
+    try:  # https://flask.palletsprojects.com/en/1.1.x/config/#instance-folders
         os.makedirs(app.instance_path)
     except OSError:
         pass
@@ -60,12 +61,12 @@ def create_app(test_config=None):
     admin.add_view(MyModelView(Page, db.session))
     admin.add_view(MyModelView(PageElement, db.session))
 
-    # admin.add_link(MenuLink(name='Public Website', category='', url=url_for('blog.index')))
     """END SECTION"""
 
-    db.init_app(app)
-    app.cli.add_command(init_db_command)
+    db.init_app(app)  # initialize app with database
+    app.cli.add_command(init_db_command)  # register init_db command for cli
 
+    # register the blueprints for all modules; register all routes
     from blog.auth import views
     app.register_blueprint(views.bp)
 
@@ -80,7 +81,7 @@ def create_app(test_config=None):
     def override_url_for():
         return dict(url_for=dated_url_for)
 
-    def dated_url_for(endpoint, **values):
+    def dated_url_for(endpoint, **values):  # for use of dated urls vs id urls
         if endpoint == 'static':
             filename = values.get('filename', None)
             if filename:
@@ -93,12 +94,15 @@ def create_app(test_config=None):
     def md(text):
         return(Markup(markdown.markdown(text)))
 
+    # register 'markdown' filter for jinja2
     app.jinja_env.filters['markdown'] = md
+
+    # define environment; development = debug mode
     app.env = 'development'
     return app
 
 
-def init_db():
+def init_db():  # clear db and create tables
     db.drop_all()
     db.create_all()
 
@@ -115,7 +119,7 @@ def init_login(app, login_manager=login_manager):
         return User.query.get(user_id)
 
 
-# click.command() defines a command line command
+# click.command() defines a cli command
 @click.command('init-db')
 @with_appcontext
 def init_db_command():
@@ -125,6 +129,7 @@ def init_db_command():
 
 
 if __name__ == "__main__":
+    # init the app, then run it
     app = create_app()
     app.run()
 
