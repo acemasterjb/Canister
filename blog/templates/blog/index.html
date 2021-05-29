@@ -40,7 +40,7 @@
               <a class="action" href="{{ url_for('blog.update', id=post['id']) }}">Edit</a>
             {% endif %}
           </header>
-          {{ post['body'][post['body'].find('<p>'):post['body'].find('</p>')]|striptags|markdown }}
+          {{ post['body'][post['body'].find('<p>'):post['body'].find('</p>')]|striptags|safe }}
         <p>...</p>
         </article>
         {% endfor %}

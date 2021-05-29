@@ -25,7 +25,7 @@
                             <a href="/section/update?section={{ section.id }}">Edit Section</a>
                             <br/>
                         {% endif %}
-                        <p> {{ section['body']|markdown }} </p>
+                        <p> {{ section['body']|safe }} </p>
                     </div>
                 {% endfor %}
                 
