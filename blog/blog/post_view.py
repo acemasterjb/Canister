@@ -51,10 +51,9 @@ def post(id):
             return redirect('/post/{}'.format(id))
 
     if request.method == 'GET' and post.toc:
-        regex = re.compile(r'<h[1-6]>[a-zA-Z" "0-9]*</h[1-6]>')
+        regex = re.compile(r'<h[1-6]>[a-zA-Z  0-9 -/]*<\/h[1-6]>')
         headers = regex.findall(post.body)
 
-    print(len(headers))
     return render_template('blog/post.html',
                            post=post, comments=comments, User=User,
                            pages=pages, headers=headers)
