@@ -1,10 +1,4 @@
 # Canister
-
-## TOC
-* [About](#About)
-* [Dependencies](#Dependencies)
-* [Installation Instructions](#Installation)
-
 ## About
 This is a fork of an (unregistered) blog app I have privately on my git. It's a Blog web app template with CRUD Admin controls with a modular design.
 
